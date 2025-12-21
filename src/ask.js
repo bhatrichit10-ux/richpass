@@ -4,7 +4,7 @@ async function ask(q, utype) {
     {
       type: utype,
       name: "value",
-      message: q,
+      message: `${q} > `,
       mask: "*"
     }
   ]);
