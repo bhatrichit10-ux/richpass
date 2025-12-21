@@ -5,17 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "nodemon tester/test.js",
-    "run": "nodemon index.js"
+    "run": "nodemon index.js",
+    "start": "richpass"
+  },
+  "bin": {
+    "keyman": "index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.2",
+    "inquirer": "^12.11.1",
     "yargs": "^18.0.0"
-  },
-  "bin": {
-  "keyman": "index.js"
   }
-
 }
