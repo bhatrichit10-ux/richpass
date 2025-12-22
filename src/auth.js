@@ -8,7 +8,7 @@ async function firstLogin() {
 
   const p1 = await ask("Set master password", 'password');
   const p2 = await ask("Confirm master password", 'password');
-
+  
   if (p1 !== p2) {
     console.log(chalk.red("✖ Passwords do not match"));
     process.exit(1);
@@ -24,7 +24,7 @@ async function firstLogin() {
       hash: key.toString("hex"),
       vault: null
     };
-
+    
     fs.writeFileSync("vault.json", JSON.stringify(data, null, 2));
     console.log(chalk.green("✔ Master Password Set Successfully"));
   });

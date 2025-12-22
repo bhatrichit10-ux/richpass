@@ -14,4 +14,3 @@ async function ask(q, utype, ch) {
 }
 
 module.exports = { ask }
- 

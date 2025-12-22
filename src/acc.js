@@ -1,3 +1,8 @@
+// For the contributers
+// This file is for just adding accounts into the database which is just a json file
+// This is because i didnt want to go around files ansd fieles to fix small things
+// I appriciate if you can fix my cluttered code
+// Thanks
 const { ask } = require('./ask')
 const vault = require('../vault.json')
 const data = require('../acc.json')
