@@ -1,0 +1,14 @@
+const crypto = require('crypto')
+const vault = require('../vault.json')
+let salt = vault.hash;
+function gen(length) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@$&()-_+=^';
+    let password = '';
+    const bytes = crypto.randomBytes(length);
+
+    for (let i = 0; i < length; i++) {
+        password += chars[bytes[i] % chars.length];
+    }
+    return password;
+}
+module.exports = {gen}
