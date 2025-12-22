@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+// Hi, Welcome to richpass. A password manager made by ghast9544
+// WHat do you think?
+// Open a PR to help me!!!
 const { ask } = require("./src/ask.js")
 const { firstLogin, confirm } = require("./src/auth.js")
 const vault = require("./vault.json")
@@ -13,7 +16,6 @@ if(vault.hash) {
   return true
 }}
 const vexist = vexister()
-
 function encrypt(text) {
   const key = Buffer.from(vault.hash, "hex")
   const iv = crypto.randomBytes(12)
