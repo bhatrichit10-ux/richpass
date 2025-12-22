@@ -9,7 +9,7 @@
     "start": "richpass"
   },
   "bin": {
-    "keyman": "index.js"
+    "keyman": "app.js"
   },
   "keywords": [],
   "author": "",

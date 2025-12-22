@@ -1,14 +1,18 @@
 #!/usr/bin/env node
+
 const { ask } = require("./src/ask.js")
 const { firstLogin, confirm } = require("./src/auth.js")
-const vault = require('./vault.json')
-const data = require('./acc.json')
-const { gen } = require('./src/gen')
-const chalk = require('chalk')
+const vault = require("./vault.json")
+const data = require("./acc.json")
+const { gen } = require("./src/gen")
+const chalk = require("chalk")
 const fs = require("fs")
-const crypto = require('crypto')
-
-let vexist = fs.existsSync("vault.json")
+const crypto = require("crypto")
+function vexister() {
+if(vault.hash) {
+  return true
+}}
+const vexist = vexister()
 
 function encrypt(text) {
   const key = Buffer.from(vault.hash, "hex")
@@ -20,48 +24,97 @@ function encrypt(text) {
     cipher.final()
   ])
 
-  const authTag = cipher.getAuthTag()
+  const tag = cipher.getAuthTag()
+  return Buffer.concat([iv, tag, encrypted]).toString("base64url")
+}
 
-  return Buffer.concat([iv, authTag, encrypted]).toString("base64url")
+function decrypt(enc) {
+  const key = Buffer.from(vault.hash, "hex")
+  const buf = Buffer.from(enc, "base64url")
+
+  const iv = buf.subarray(0, 12)
+  const tag = buf.subarray(12, 28)
+  const encrypted = buf.subarray(28)
+
+  const decipher = crypto.createDecipheriv("aes-256-gcm", key, iv)
+  decipher.setAuthTag(tag)
+
+  return Buffer.concat([
+    decipher.update(encrypted),
+    decipher.final()
+  ]).toString("utf8")
 }
 
 async function menu() {
   const ok = await confirm()
   if (!ok) return
 
+  if (!data.accounts) data.accounts = {}
+
   const option = await ask(
     "What do you want to do?",
     "list",
-    ["Add Account", "List Accounts", "Remove Accounts"]
+    ["Add Account", "View Account", "Remove Account"]
   )
 
-  if (option !== "Add Account") return
+  if (option === "Add Account") {
+    const name = await ask("Service name")
+    const user = await ask("Username")
+    const auto = await ask("Auto generate password?", "confirm")
 
-  const name = await ask("Name of the service?")
-  const user = await ask("Enter username")
-  const auto = await ask("Use auto generated password?", "confirm")
+    let plain
 
-  let plainPassword
+    if (auto) {
+      plain = gen(12)
+      console.log(chalk.blue("Generated password:"))
+      console.log(chalk.green(plain))
+    } else {
+      plain = await ask("Enter password", "password")
+    }
 
-  if (auto) {
-    plainPassword = gen(12)
-    console.log(chalk.blue("Generated Password:"))
-    console.log(chalk.green(plainPassword))
-  } else {
-    plainPassword = await ask("Enter password", "password")
+    data.accounts[name] = {
+      user,
+      pass: encrypt(plain)
+    }
+
+    fs.writeFileSync("./acc.json", JSON.stringify(data, null, 2))
+    console.log(chalk.green("Account saved"))
+    return
   }
 
-  const encpass = encrypt(plainPassword)
+  if (option === "View Account") {
+    const names = Object.keys(data.accounts)
 
-  if (!data.accounts) data.accounts = {}
+    if (names.length === 0) {
+      console.log("No accounts stored")
+      return
+    }
 
-  data.accounts[name] = {
-    user,
-    pass: encpass
+    const choice = await ask("Select account", "list", names)
+    const acc = data.accounts[choice]
+    const password = decrypt(acc.pass)
+
+    console.log("\nService :", choice)
+    console.log("Username:", acc.user)
+    console.log("Password:", chalk.green(password))
+    return
   }
 
-  fs.writeFileSync("./acc.json", JSON.stringify(data, null, 2))
-  console.log(chalk.green("Account saved securely"))
+  if (option === "Remove Account") {
+    const names = Object.keys(data.accounts)
+
+    if (names.length === 0) {
+      console.log("No accounts to remove")
+      return
+    }
+
+    const choice = await ask("Select account to remove", "list", names)
+    delete data.accounts[choice]
+
+    fs.writeFileSync("./acc.json", JSON.stringify(data, null, 2))
+    console.log(chalk.red("Account removed"))
+    return
+  }
 }
 
 if (vexist) {
@@ -69,4 +122,3 @@ if (vexist) {
 } else {
   firstLogin()
 }
-
