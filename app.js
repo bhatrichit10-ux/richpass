@@ -1,22 +1,55 @@
 #!/usr/bin/env node
 
-// Hi, Welcome to richpass. A password manager made by ghast9544
-// WHat do you think?
-// Open a PR to help me!!!
-const { ask } = require("./src/ask.js")
-const { firstLogin, confirm } = require("./src/auth.js")
-const vault = require("./vault.json")
-const data = require("./acc.json")
+const { ask } = require("./src/ask")
+const { firstLogin, confirm } = require("./src/auth")
 const { gen } = require("./src/gen")
 const chalk = require("chalk")
 const fs = require("fs")
+const path = require("path")
+const os = require("os")
 const crypto = require("crypto")
+
+const BASE_DIR = path.join(os.homedir(), ".richpass")
+const VAULT_PATH = path.join(BASE_DIR, "vault.json")
+const ACC_PATH = path.join(BASE_DIR, "acc.json")
+
+if (!fs.existsSync(BASE_DIR)) {
+  fs.mkdirSync(BASE_DIR, { recursive: true })
+}
+
+if (!fs.existsSync(VAULT_PATH)) {
+  fs.writeFileSync(
+    VAULT_PATH,
+    JSON.stringify({ salt: null, hash: null, vault: null }, null, 2)
+  )
+}
+
+if (!fs.existsSync(ACC_PATH)) {
+  fs.writeFileSync(
+    ACC_PATH,
+    JSON.stringify({ accounts: {} }, null, 2)
+  )
+}
+
+function readVault() {
+  return JSON.parse(fs.readFileSync(VAULT_PATH, "utf8"))
+}
+
+function readAcc() {
+  return JSON.parse(fs.readFileSync(ACC_PATH, "utf8"))
+}
+
+function writeAcc(data) {
+  fs.writeFileSync(ACC_PATH, JSON.stringify(data, null, 2))
+}
+
 function vexister() {
-if(vault.hash) {
-  return true
-}}
-const vexist = vexister()
+  const vault = readVault()
+  return !!vault.hash
+}
+
 function encrypt(text) {
+  const vault = readVault()
   const key = Buffer.from(vault.hash, "hex")
   const iv = crypto.randomBytes(12)
 
@@ -31,6 +64,7 @@ function encrypt(text) {
 }
 
 function decrypt(enc) {
+  const vault = readVault()
   const key = Buffer.from(vault.hash, "hex")
   const buf = Buffer.from(enc, "base64url")
 
@@ -51,12 +85,18 @@ async function menu() {
   const ok = await confirm()
   if (!ok) return
 
+  const data = readAcc()
   if (!data.accounts) data.accounts = {}
 
   const option = await ask(
     "What do you want to do?",
     "list",
-    ["Add Account", "View Account", "Remove Account"]
+    [
+      "Add Account",
+      "View Account",
+      "Remove Account",
+      "Remove Master Password"
+    ]
   )
 
   if (option === "Add Account") {
@@ -79,7 +119,7 @@ async function menu() {
       pass: encrypt(plain)
     }
 
-    fs.writeFileSync("./acc.json", JSON.stringify(data, null, 2))
+    writeAcc(data)
     console.log(chalk.green("Account saved"))
     return
   }
@@ -113,13 +153,31 @@ async function menu() {
     const choice = await ask("Select account to remove", "list", names)
     delete data.accounts[choice]
 
-    fs.writeFileSync("./acc.json", JSON.stringify(data, null, 2))
+    writeAcc(data)
     console.log(chalk.red("Account removed"))
     return
   }
+
+  if (option === "Remove Master Password") {
+    const sure = await ask(
+      "This will delete ALL data. Are you sure?",
+      "confirm"
+    )
+
+    if (!sure) {
+      console.log("Cancelled")
+      return
+    }
+
+    if (fs.existsSync(VAULT_PATH)) fs.unlinkSync(VAULT_PATH)
+    if (fs.existsSync(ACC_PATH)) fs.unlinkSync(ACC_PATH)
+
+    console.log(chalk.red("All data deleted"))
+    process.exit(0)
+  }
 }
 
-if (vexist) {
+if (vexister()) {
   menu()
 } else {
   firstLogin()

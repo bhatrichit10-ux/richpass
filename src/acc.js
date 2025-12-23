@@ -1,21 +1,50 @@
-// For the contributers
-// This file is for just adding accounts into the database which is just a json file
-// This is because i didnt want to go around files ansd fieles to fix small things
-// I appriciate if you can fix my cluttered code
-// Thanks
-const { ask } = require('./ask')
-const vault = require('../vault.json')
-const data = require('../acc.json')
 const crypto = require('crypto')
-function add(acc, user, pass) {
-    let salter = vault.hash;
-    crypto.pbkdf2(p1, salter, 100000, 32, "sha256", (err, key) => {
-        let hashedpass = key.toString('hex')
-    })
-    
-    data.accounts[acc] = {
-        user:user,
-        passw:hashedpass
-    }
+const fs = require('fs')
+const path = require('path')
+const os = require('os')
+
+const BASE_DIR = path.join(os.homedir(), '.richpass')
+const VAULT_PATH = path.join(BASE_DIR, 'vault.json')
+const ACC_PATH = path.join(BASE_DIR, 'acc.json')
+
+if (!fs.existsSync(BASE_DIR)) {
+  fs.mkdirSync(BASE_DIR, { recursive: true })
 }
-module.exports = {add}
+
+if (!fs.existsSync(VAULT_PATH)) {
+  fs.writeFileSync(VAULT_PATH, JSON.stringify({ salt: null, hash: null }, null, 2))
+}
+
+if (!fs.existsSync(ACC_PATH)) {
+  fs.writeFileSync(ACC_PATH, JSON.stringify({ accounts: {} }, null, 2))
+}
+
+function readVault() {
+  return JSON.parse(fs.readFileSync(VAULT_PATH, 'utf8'))
+}
+
+function readAcc() {
+  return JSON.parse(fs.readFileSync(ACC_PATH, 'utf8'))
+}
+
+function writeAcc(data) {
+  fs.writeFileSync(ACC_PATH, JSON.stringify(data, null, 2))
+}
+
+function add(acc, user, pass) {
+  const vault = readVault()
+  const data = readAcc()
+
+  crypto.pbkdf2(pass, vault.salt, 100000, 32, 'sha256', (err, key) => {
+    if (err) throw err
+
+    data.accounts[acc] = {
+      user: user,
+      passw: key.toString('hex')
+    }
+
+    writeAcc(data)
+  })
+}
+
+module.exports = { add }

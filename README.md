@@ -21,23 +21,27 @@ A cli based password manager made by richit.<br> For hackvault
 
 
 ## Installation
-
-Install my-project with npm
+Package on npm website uploaded by me doesnt work. atleast for now<br>
+Install richpass
 
 ```bash
-  npm install -g richpass
+  git clone https://github.com/bhatrichit10-ux/richpass.git
+  cd richpass
+  npm i
+  npm link
+
 ```
 ## Usage 
 ### Windows
-```
+```ps
 npx richpass
 ```
 ### MacOS
-```
+```bash
 richpass
 ```
 ### Linux 
-```
+```bash
 richpass
 ```
 
