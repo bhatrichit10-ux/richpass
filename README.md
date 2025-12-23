@@ -1,7 +1,8 @@
 # Richpass
-A cli based password manager made by richit.<br> For hackvault
+A cli based password manager made by richit.<br> For hackvault <br>
 ![Hackatime stats](https://github-readme-stats.hackclub.dev/api/wakatime?username=23954&api_domain=hackatime.hackclub.com&theme=darcula&custom_title=Hackatime+Stats&layout=compact&cache_seconds=0&langs_count=8
 )
+
 ## Features
 - Free to use
 - Just for the devs
@@ -25,16 +26,12 @@ Package on npm website uploaded by me doesnt work. atleast for now<br>
 Install richpass
 
 ```bash
-  git clone https://github.com/bhatrichit10-ux/richpass.git
-  cd richpass
-  npm i
-  npm link
-
+npm install -g richpass
 ```
 ## Usage 
 ### Windows
 ```ps
-npx richpass
+richpass
 ```
 ### MacOS
 ```bash
