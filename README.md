@@ -1,59 +1,71 @@
-# Richpass
-A cli based password manager made by richit.<br> For hackvault <br>
-![Hackatime stats](https://github-readme-stats.hackclub.dev/api/wakatime?username=23954&api_domain=hackatime.hackclub.com&theme=darcula&custom_title=Hackatime+Stats&layout=compact&cache_seconds=0&langs_count=8
-)
+<div align="center">
+  <a href="#">
+    <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy-downsized.gif" alt="Cat coding" height="160" />
+  </a>
+  <br>
+  <br>
+  <p>
+    <b>richpass</b>
+  </p>
+  <p>
+     <i>A project for developers to manage their passwords just using the keyboard. No mouse required</i>
+  </p>
+  <p>
 
-## Features
-- Free to use
-- Just for the devs
-- No mouse required
-- Can be used with just a keybaord
-- Encrypts passwords with a master key
-- The master key is encryoted as well
-- No openly stored keys or passwords
-- Runs locally, No server required.
-- Add accounts
-- Delete accounts
-- Select and list their passwords
+[![NPM version](https://img.shields.io/npm/v/richpass?style=flat-square)](https://img.shields.io/npm/v/richpass?style=flat-square)
+[![Package size](https://img.shields.io/bundlephobia/min/richpass)](https://img.shields.io/bundlephobia/min/richpass)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-## Images
-![Image1](assets/image.png)
-<!-- <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://hc-cdn.hel1.your-objectstorage.com/s/v3/a1d1899e6477fa63_ghast_v6xcxuczwd.mp4" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="encrypted-media *;"></iframe></div> -->
+  </p>
+</div>
 
+---
 
-## Installation
-Package on npm website uploaded by me doesnt work. atleast for now<br>
-Install richpass
+**Content**
 
-```bash
+* [Features](##features)
+* [Install](##install)
+* [Usage](##usage)
+* [Exemples](##exemples)
+* [Documentation](##documentation)
+* [API](##Api)
+* [Contributing](##contributing)
+* [Maintainers](##maintainers)
+
+## Features ✨
+* FOSS - Free and Open Source
+* No  mouse required to operate
+* Password encyrption using master password
+* Runs locally, No server required
+* Manage multiple accounts
+* Reset to default state by removing master password (Removes all data)
+
+## Install 🐙
+To install richpass, You must have nodejs and npm installed on your system.
+
+Just run 
+```
 npm install -g richpass
 ```
-## Usage 
-### Windows
-```ps
-richpass
-```
-### MacOS
-```bash
-richpass
-```
-### Linux 
+## Usage 💡
+To use it, there is a one simple command. No need for any args.
+You can access everything with this command:
 ```bash
 richpass
 ```
 
-## What's next?
-I am planing to add:
-- Option to chnage master password: Will remove all accounts and passwords
-If you want to do this before i make it. You must uninstall your package and reinstall it.
-- A new cool login screen
+## Documentation 📄
+I am working on the documentation
 
 
-## Contributing
+## Contributing 🍰
+Thank you to all the people who will contribute to this project!
 
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
+## Maintainers 👷
+List of maintainers, replace all `href`, `src` attributes by your maintainers datas.
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/bhatrichit10-ux"><img src="https://hc-cdn.hel1.your-objectstorage.com/s/v3/89ab35d774fd97c0_image.png" width="100px;" alt="ghast9544"/><br /><sub><b>Richit (aka ghast9544)</b></sub></a><br /><a href="#" title="Code">💻</a></td>
+  </tr>
+</table>
 
-Please make sure to update tests as appropriate.
-
-## Thanks for taking a look ;)
