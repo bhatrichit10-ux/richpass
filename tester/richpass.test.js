@@ -50,7 +50,7 @@ function decrypt(enc, keyHex) {
   ]).toString()
 }
 
-test("vault and account files are created", () => {
+test("Setup: Vault creation and Data ", () => {
   setup()
 
   fs.writeFileSync(
@@ -69,7 +69,7 @@ test("vault and account files are created", () => {
   cleanup()
 })
 
-test("encryption and decryption works", () => {
+test("Setup: Encrypt and Decrypt", () => {
   setup()
 
   const salt = crypto.randomBytes(16).toString("hex")
