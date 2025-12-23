@@ -2,10 +2,10 @@
   "name": "richpass",
   "version": "1.0.3",
   "description": "A cli based password manager made by richit. For hackvault",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "node --test",
-    "run": "nodemon app.js",
+    "run": "node app.js",
     "start": "richpass"
   },
   "bin": {
