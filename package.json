@@ -4,7 +4,7 @@
   "description": "A cli based password manager made by richit. For hackvault",
   "main": "index.js",
   "scripts": {
-    "test": "node tester/test.js",
+    "test": "node --test",
     "run": "nodemon app.js",
     "start": "richpass"
   },
