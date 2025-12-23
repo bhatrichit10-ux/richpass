@@ -9,7 +9,7 @@ const path = require("path")
 const os = require("os")
 const crypto = require("crypto")
 
-const BASE_DIR = path.join(os.homedir(), ".richpass")
+const BASE_DIR = process.env.RICHPASS_TEST_DIR || path.join(os.homedir(), ".richpass")
 const VAULT_PATH = path.join(BASE_DIR, "vault.json")
 const ACC_PATH = path.join(BASE_DIR, "acc.json")
 
