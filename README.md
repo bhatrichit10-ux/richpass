@@ -26,9 +26,7 @@
 * [Features](##features)
 * [Install](##install)
 * [Usage](##usage)
-* [Exemples](##exemples)
 * [Documentation](##documentation)
-* [API](##Api)
 * [Contributing](##contributing)
 * [Maintainers](##maintainers)
 
