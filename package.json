@@ -1,6 +1,6 @@
 {
   "name": "richpass",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A cli based password manager made by richit. For hackvault",
   "main": "app.js",
   "scripts": {
