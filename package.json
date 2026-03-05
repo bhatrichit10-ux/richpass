@@ -15,8 +15,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tailwindcss/postcss": "^4.2.1",
     "chalk": "^4.1.2",
     "clipboardy": "^5.0.2",
+    "ejs": "^4.0.1",
     "express": "^5.2.1",
     "inquirer": "^12.11.1",
     "yargs": "^18.0.0"
