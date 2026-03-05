@@ -23,5 +23,8 @@ app.use(express.static("public"))
 app.get("/", (req, res) => {
   res.render("index")
 })
-
+app.get('/generate-password', (req, res) => {
+  const password = gen(12) 
+  res.json({ password })
+})
 app.listen(3000)

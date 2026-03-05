@@ -4,9 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RichPass</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-indigo-950 text-white min-h-screen">
+<body class="bg-indigo-950 text-white min-h-screen font-[General_Sans]">
     <%- include('navbar') %>
+    <div class="max-w-6xl mx-auto px-6 py-24 flex items-center justify-between gap-20">
+        <div class="max-w-xl">
+            <h1 class="text-5xl font-semibold mb-6">Welcome to RichPass</h1>
+            <p class="text-lg text-slate-300 mb-2">A simple password generator.</p>
+            <p class="text-lg text-slate-400">Use the CLI version for advanced features.</p>
+    </div>
+    <div class="w-80 bg-slate-900/60 border border-slate-700 p-6 rounded-xl shadow-xl backdrop-blur">
+        <h2 class="text-lg font-semibold mb-4">Password Generator</h2>
+        <button id="btn" class="w-full bg-yellow-400 hover:bg-yellow-500 text-black py-2 rounded-md font-medium transition">Generate Password</button>
+        <div id="password" class="mt-5 bg-slate-800 p-3 rounded-md font-mono text-green-400 text-center break-all min-h-[40px]"></div>
+    </div>
+    </div>
+    <script>
+    document.getElementById('btn').addEventListener('click',async()=>{
+    const response=await fetch('/generate-password')
+    const data=await response.json()
+    document.getElementById('password').textContent=data.password
+    })
+    </script>
 </body>
 </html>

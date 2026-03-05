@@ -51,6 +51,8 @@ You can access everything with this command:
 ```bash
 richpass
 ```
+## Website version
+It is a basic password manager with no features. If you require more feature, like storing passwords, use the CLI version
 
 ## Documentation 📄
 I am working on the documentation
@@ -58,12 +60,4 @@ I am working on the documentation
 
 ## Contributing 🍰
 Thank you to all the people who will contribute to this project!
-
-## Maintainers 👷
-List of maintainers, replace all `href`, `src` attributes by your maintainers datas.
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/bhatrichit10-ux"><img src="https://hc-cdn.hel1.your-objectstorage.com/s/v3/89ab35d774fd97c0_image.png" width="100px;" alt="ghast9544"/><br /><sub><b>Richit (aka ghast9544)</b></sub></a><br /><a href="#" title="Code">💻</a></td>
-  </tr>
-</table>
 
